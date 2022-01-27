@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/activity_main.xml" value="0.4" />
-        <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/activity_session.xml" value="0.536" />
+        <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/activity_session.xml" value="0.4" />
         <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/dialog_fragment.xml" value="0.4" />
         <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/edit_dialog_fragment.xml" value="0.4041666666666667" />
+        <entry key="..\:/Users/shahm/AndroidStudioProjects/RollCount/app/src/main/res/layout/histogram_dialog.xml" value="0.4041666666666667" />
       </map>
     </option>
   </component>

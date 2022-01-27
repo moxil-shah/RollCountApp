@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,9 +15,9 @@ import org.w3c.dom.Text;
 
 public class SessionActivity extends AppCompatActivity implements EditSessionNameDialog.EditSessionNameDialogListener, View.OnClickListener {
 
-    protected Button btnEditSessionName, btnGoMainActivity, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16, btn17, btn18;
+    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16, btn17, btn18;
     protected GameSession openedGameSession;
-    protected TextView sessionTitle, atest;
+    protected TextView sessionTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +26,14 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         openedGameSession = (GameSession)getIntent().getSerializableExtra("GameSession");
 
         sessionTitle = (TextView) findViewById(R.id.textView1);
-        atest = (TextView) findViewById(R.id.testoutput);
 
-
-
-        atest.setText(String.valueOf(openedGameSession.getSpecificGameTotal(7)));
 
         sessionTitle.setText(openedGameSession.getSessionName());
 
 
         btnEditSessionName = (Button) findViewById(R.id.buttonEditSessionName);
         btnGoMainActivity = (Button) findViewById(R.id.buttonGoMainActivity);
+        btnGoHistogram = (Button) findViewById(R.id.buttonHistogram);
         btn1 = (Button) findViewById(R.id.button1);
         btn2 = (Button) findViewById(R.id.button2);
         btn3 = (Button) findViewById(R.id.button3);
@@ -92,6 +90,24 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
             }
         });
 
+        btnGoHistogram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistogramDialog();
+            }
+        });
+
+    }
+
+    private void openHistogramDialog() {
+
+        Intent intent = new Intent(this, HistogramDialog.class);
+        intent.putExtra("Game Session", openedGameSession); //value should be your string from the edittext
+        Bundle args = (intent.getExtras());
+
+        HistogramDialog histogramDialog = new HistogramDialog();
+        histogramDialog.setArguments(args);
+        histogramDialog.show(getSupportFragmentManager(), "histogram dialog");
     }
 
     private void hideCertainButtons() {
@@ -143,9 +159,9 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         sessionTitle.setText(sessionName);
     }
 
-
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.button1:
                 openedGameSession.addADiceRoll(1);

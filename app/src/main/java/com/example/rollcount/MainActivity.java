@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
                     Bundle bundle = (Bundle) result.getData().getExtras();
                     GameSession gameSession = (GameSession) bundle.get("Game Session");
                     dataList.get(itemIndex).setSessionName(gameSession.getSessionName());
+                    dataList.get(itemIndex).setNewGameTotals(gameSession.getGameTotals());
                     gameSessionList.setAdapter(gameSessionAdapter);
                     gameSessionAdapter.notifyDataSetChanged();
                 }
@@ -54,10 +55,8 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GameSession One = new GameSession();
-        GameSession[] gameSessions = {One};
+        GameSession[] gameSessions = {};
         dataList = new ArrayList<GameSession>();
-        dataList.addAll(Arrays.asList(gameSessions));
 
         // finding elements
         gameSessionList = findViewById(R.id.session_list);
@@ -104,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         createdNew.setSessionName(sessionName);
         createdNew.setNumberOfDiceRolls(numberOfRolls);
         createdNew.setNumberOfDiceSides(numberOfSides);
-        createdNew.setPossibleTotals();
+        createdNew.setGameTotals();
+       // createdNew.setPossibleTotals();
         dataList.add(createdNew);
         gameSessionList.setAdapter(gameSessionAdapter);
         gameSessionAdapter.notifyDataSetChanged();
