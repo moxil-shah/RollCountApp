@@ -16,12 +16,11 @@
 
         <TextView
             android:id="@+id/textHistogram"
-
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:ellipsize="end"
             android:maxLines="20"
-            android:singleLine="false"></TextView>
+            android:singleLine="false" />
 
     </RelativeLayout>
 

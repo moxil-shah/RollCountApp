@@ -16,45 +16,46 @@
 
         <EditText
             android:id="@+id/editTextInputSessionName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="51dp"
-            android:layout_marginEnd="61dp"
-            android:layout_marginBottom="338dp"
-            android:hint="Enter Session Name"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="369dp"
+            android:hint="Session Name"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editTextInputRolls"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="74dp"
-            android:layout_marginEnd="84dp"
-            android:layout_marginBottom="266dp"
             android:layout_centerHorizontal="true"
-            android:hint="Enter # Rolls"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="304dp"
+            android:hint="# Rolls"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextInputSides"
-            android:layout_width="wrap_content"
+            android:id="@+id/editTextInputDate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="83dp"
-            android:layout_marginBottom="199dp"
-            android:hint="Enter # Sides"
-            android:textSize="20sp" />
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="0dp"
+            android:ems="10"
+            android:hint="Date (leave empty for current date)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </RelativeLayout>
 

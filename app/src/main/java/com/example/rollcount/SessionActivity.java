@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 
 public class SessionActivity extends AppCompatActivity implements EditSessionNameDialog.EditSessionNameDialogListener, View.OnClickListener {
 
-    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16, btn17, btn18;
+    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btnUndo ,btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16, btn17, btn18;
     protected GameSession openedGameSession;
     protected TextView sessionTitle;
 
@@ -34,6 +34,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         btnEditSessionName = (Button) findViewById(R.id.buttonEditSessionName);
         btnGoMainActivity = (Button) findViewById(R.id.buttonGoMainActivity);
         btnGoHistogram = (Button) findViewById(R.id.buttonHistogram);
+        btnUndo = (Button) findViewById(R.id.buttonUndo);
         btn1 = (Button) findViewById(R.id.button1);
         btn2 = (Button) findViewById(R.id.button2);
         btn3 = (Button) findViewById(R.id.button3);
@@ -94,6 +95,12 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
             @Override
             public void onClick(View view) {
                 openHistogramDialog();
+            }
+        });
+        btnUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openedGameSession.undoDiceRoll();
             }
         });
 

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class AddSessionDialog extends AppCompatDialogFragment {
 
-    private EditText edtTextInputSessionName, edtTextInputRolls, edtTextInputSides;
+    private EditText edtTextInputSessionName, edtTextInputRolls, edtTextInputDate;
     private AddSessionDialogListener listener;
     public AddSessionDialog() {
     }
@@ -42,15 +43,16 @@ public class AddSessionDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String sessionName = edtTextInputSessionName.getText().toString();
                         String numberOfRolls = edtTextInputRolls.getText().toString();
-                        String numberOfSides = edtTextInputSides.getText().toString();
+                        String numberOfSides = "6";
+                        String sessionDate = edtTextInputDate.getText().toString();
                         final int numberOfRollsInt = Integer.parseInt(numberOfRolls);
                         final int numberOfSidesInt = Integer.parseInt(numberOfSides);
-                        listener.applyTexts(sessionName, numberOfRollsInt, numberOfSidesInt);
+                        listener.applyTexts(sessionName, numberOfRollsInt, numberOfSidesInt, sessionDate);
                     }
                 });
     edtTextInputRolls = view.findViewById(R.id.editTextInputRolls);
-    edtTextInputSides = view.findViewById(R.id.editTextInputSides);
     edtTextInputSessionName = view.findViewById(R.id.editTextInputSessionName);
+    edtTextInputDate = view.findViewById(R.id.editTextInputDate);
 
 
     return builder.create();
@@ -69,6 +71,6 @@ public class AddSessionDialog extends AppCompatDialogFragment {
     }
 
     public interface AddSessionDialogListener {
-        void applyTexts(String sessionName, int numberOfRollsInt, int numberOfSidesInt);
+        void applyTexts(String sessionName, int numberOfRollsInt, int numberOfSidesInt, String dateStarted);
     }
 }

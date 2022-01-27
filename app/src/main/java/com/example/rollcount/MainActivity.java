@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,8 +35,10 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     protected ListView gameSessionList;
     protected ArrayList<GameSession> dataList;
     protected ArrayAdapter<GameSession> gameSessionAdapter;
-    protected Button btnAddSession;
+    protected Button btnAddSession, btnDeleteSession;
     protected int itemIndex;
+    protected boolean itemDelete = false;
+    protected TextView txtTotalCounter;
 
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult
@@ -43,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
                     GameSession gameSession = (GameSession) bundle.get("Game Session");
                     dataList.get(itemIndex).setSessionName(gameSession.getSessionName());
                     dataList.get(itemIndex).setNewGameTotals(gameSession.getGameTotals());
+                    dataList.get(itemIndex).setGameOutcomes(gameSession.getGameOutcomes());
                     gameSessionList.setAdapter(gameSessionAdapter);
                     gameSessionAdapter.notifyDataSetChanged();
+                    saveData();
                 }
             }
         }
@@ -56,11 +67,15 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         setContentView(R.layout.activity_main);
 
         GameSession[] gameSessions = {};
-        dataList = new ArrayList<GameSession>();
+        //dataList = new ArrayList<GameSession>();
+        loadData();
+        txtTotalCounter = (TextView) findViewById(R.id.textTotalCounter);
+        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
 
         // finding elements
         gameSessionList = findViewById(R.id.session_list);
         btnAddSession = (Button) findViewById(R.id.buttonAddSession);
+        btnDeleteSession = (Button) findViewById(R.id.buttonDeleteSession);
 
         // Setting ArrayAdapter
         gameSessionAdapter = new ArrayAdapter<GameSession>(this, R.layout.content, dataList);
@@ -79,9 +94,33 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 itemIndex = i;
-                openSessionActivity();
+                if (itemDelete)
+                    removeSession();
+                else {
+                    openSessionActivity();
+                }
             }
         });
+        btnDeleteSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dataList.size() != 0) {
+                    Toast.makeText(MainActivity.this, "Click Session to Delete", Toast.LENGTH_LONG).show();
+                    itemDelete = true;
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Don't even try to crash my app", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void removeSession() {
+        dataList.remove(itemIndex);
+        gameSessionAdapter.notifyDataSetChanged(); // update list view
+        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
+        itemDelete = false;
+        saveData();
     }
 
     public void openSessionActivity() {
@@ -98,17 +137,38 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     }
 
     @Override
-    public void applyTexts(String sessionName, int numberOfRolls, int numberOfSides) {
+    public void applyTexts(String sessionName, int numberOfRolls, int numberOfSides, String dateStarted) {
         GameSession createdNew = new GameSession();
         createdNew.setSessionName(sessionName);
+        createdNew.setDateStarted(dateStarted);
         createdNew.setNumberOfDiceRolls(numberOfRolls);
         createdNew.setNumberOfDiceSides(numberOfSides);
         createdNew.setGameTotals();
-       // createdNew.setPossibleTotals();
         dataList.add(createdNew);
         gameSessionList.setAdapter(gameSessionAdapter);
+        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
         gameSessionAdapter.notifyDataSetChanged();
-
+        saveData();
     }
 
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(dataList);
+        editor.putString("sessions", json);
+        editor.apply();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("sessions", null);
+        Type type = new TypeToken<ArrayList<GameSession>>() {}.getType();
+        dataList = gson.fromJson(json, type);
+
+        if (dataList == null) {
+            dataList = new ArrayList<>();
+        }
+    }
 }
