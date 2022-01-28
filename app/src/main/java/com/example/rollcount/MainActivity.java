@@ -138,12 +138,9 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
 
     @Override
     public void applyTexts(String sessionName, int numberOfRolls, int numberOfSides, String dateStarted) {
-        GameSession createdNew = new GameSession();
+        GameSession createdNew = new GameSession(numberOfRolls, numberOfSides);
         createdNew.setSessionName(sessionName);
         createdNew.setDateStarted(dateStarted);
-        createdNew.setNumberOfDiceRolls(numberOfRolls);
-        createdNew.setNumberOfDiceSides(numberOfSides);
-        createdNew.setGameTotals();
         dataList.add(createdNew);
         gameSessionList.setAdapter(gameSessionAdapter);
         txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
@@ -151,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         saveData();
     }
 
+    // cite this method
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -160,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         editor.apply();
     }
 
+    // cite this method
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("sessions", null);
         Type type = new TypeToken<ArrayList<GameSession>>() {}.getType();
         dataList = gson.fromJson(json, type);
-
         if (dataList == null) {
             dataList = new ArrayList<>();
         }

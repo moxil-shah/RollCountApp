@@ -26,10 +26,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         openedGameSession = (GameSession)getIntent().getSerializableExtra("GameSession");
 
         sessionTitle = (TextView) findViewById(R.id.textView1);
-
-
         sessionTitle.setText(openedGameSession.getSessionName());
-
 
         btnEditSessionName = (Button) findViewById(R.id.buttonEditSessionName);
         btnGoMainActivity = (Button) findViewById(R.id.buttonGoMainActivity);
@@ -73,9 +70,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         btn17.setOnClickListener(this);
         btn18.setOnClickListener(this);
 
-
         hideCertainButtons();
-
 
         btnEditSessionName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +104,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
     private void openHistogramDialog() {
 
         Intent intent = new Intent(this, HistogramDialog.class);
-        intent.putExtra("Game Session", openedGameSession); //value should be your string from the edittext
+        intent.putExtra("Game Session", openedGameSession);
         Bundle args = (intent.getExtras());
 
         HistogramDialog histogramDialog = new HistogramDialog();

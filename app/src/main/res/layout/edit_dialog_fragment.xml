@@ -27,8 +27,5 @@
             android:layout_marginBottom="338dp"
             android:hint="Enter Session Name"
             android:textSize="20sp" />
-
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

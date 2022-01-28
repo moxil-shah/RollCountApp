@@ -18,15 +18,16 @@ import androidx.fragment.app.DialogFragment;
 
 public class HistogramDialog extends AppCompatDialogFragment {
 
-    protected GameSession openedGameSession;
-    protected TextView txtHistogram;
-    protected TextView txtHistogramStats;
-    public HistogramDialog() {
-    }
+    private GameSession openedGameSession;
+    private TextView txtHistogram;
+    private TextView txtHistogramStats;
+
+    public HistogramDialog() {}
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle saveInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.histogram_dialog, null);
@@ -39,8 +40,6 @@ public class HistogramDialog extends AppCompatDialogFragment {
             txtHistogram.setText(openedGameSession.getStringHistogram());
             txtHistogramStats.setText(openedGameSession.getStrHistogramStats());
         }
-
-       // txtHistogram.setText(openedGameSession.getStringHistogram());
         builder.setView(view)
                 .setTitle(openedGameSession.getSessionName()+" Histogram")
                 .setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -50,8 +49,6 @@ public class HistogramDialog extends AppCompatDialogFragment {
                     }
                 });
 
-
         return builder.create();
     }
-
 }
