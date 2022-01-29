@@ -15,18 +15,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
-public class EditSessionNameDialog extends AppCompatDialogFragment {
-
+// got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+public class EditSessionNameDateDialog extends AppCompatDialogFragment {
+    // declaring required objects
     private EditText edtTextInputNewSessionName;
+    private EditText edtTextInputNewSessionDate;
     private EditSessionNameDialogListener listener;
-    public EditSessionNameDialog() {
-    }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle saveInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.edit_dialog_fragment, null);
+        View view = inflater.inflate(R.layout.edit_dialog_fragment, null); // make the view the.xml file layout
 
         builder.setView(view)
                 .setTitle("New Game Session Name")
@@ -40,30 +41,24 @@ public class EditSessionNameDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String sessionName = edtTextInputNewSessionName.getText().toString();
-
-                        listener.applyTexts(sessionName);
+                        String sessionDate = edtTextInputNewSessionDate.getText().toString();
+                        listener.applyTexts(sessionName, sessionDate); // update the session name by making a context listener. this gets sent back
                     }
                 });
 
         edtTextInputNewSessionName = view.findViewById(R.id.editTextInputNewSessionName);
-
-
+        edtTextInputNewSessionDate = view.findViewById(R.id.editTextInputNewSessionDate);
         return builder.create();
     }
 
     @Override
-    public void onAttach(Context context) {
+    // fragment is attached to its context
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
-        try {
-            listener = (EditSessionNameDialogListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement EditSessionNameDialogListener");
-        }
-
+        listener = (EditSessionNameDialogListener) context;
     }
-
+    // send the data back to calling activity
     public interface EditSessionNameDialogListener {
-        void applyTexts(String sessionName);
+        void applyTexts(String sessionName, String sessionDate);
     }
 }

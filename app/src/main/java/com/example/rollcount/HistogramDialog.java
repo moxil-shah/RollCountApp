@@ -17,12 +17,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 public class HistogramDialog extends AppCompatDialogFragment {
-
+    // declaring required objects
     private GameSession openedGameSession;
     private TextView txtHistogram;
     private TextView txtHistogramStats;
-
-    public HistogramDialog() {}
 
     @NonNull
     @Override
@@ -34,9 +32,10 @@ public class HistogramDialog extends AppCompatDialogFragment {
         txtHistogram = (TextView) view.findViewById(R.id.textHistogram);
         txtHistogramStats = (TextView) view.findViewById(R.id.textHistogramStats);
 
-        Bundle mArgs = getArguments();
-        if (mArgs != null) {
-            openedGameSession = (GameSession) mArgs.get("Game Session");
+        // got help from https://stackoverflow.com/questions/15459209/passing-argument-to-dialogfragment
+        Bundle passedGameSessionObject = getArguments();
+        if (passedGameSessionObject != null) {
+            openedGameSession = (GameSession) passedGameSessionObject.get("Game Session");
             txtHistogram.setText(openedGameSession.getStringHistogram());
             txtHistogramStats.setText(openedGameSession.getStrHistogramStats());
         }
@@ -48,7 +47,6 @@ public class HistogramDialog extends AppCompatDialogFragment {
                         openedGameSession.resetStringHistogram();
                     }
                 });
-
         return builder.create();
     }
 }

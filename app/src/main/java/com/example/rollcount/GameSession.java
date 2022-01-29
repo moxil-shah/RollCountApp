@@ -129,6 +129,8 @@ public class GameSession implements Serializable {
 
     public ArrayList<Integer> getGameOutcomes() { return gameOutcomes; }
 
+    public String getDateStarted() { return dateStarted; }
+
     public String getStringHistogram() {
 
         int outcomeOffset = 0, frequencyOffset = 0;

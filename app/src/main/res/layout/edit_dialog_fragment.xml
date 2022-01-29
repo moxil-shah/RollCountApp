@@ -16,16 +16,31 @@
 
         <EditText
             android:id="@+id/editTextInputNewSessionName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="276dp"
+            android:layout_height="53dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="51dp"
-            android:layout_marginEnd="61dp"
-            android:layout_marginBottom="338dp"
-            android:hint="Enter Session Name"
-            android:textSize="20sp" />
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="337dp"
+            android:hint="Enter new name (blank for unchanged)"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editTextInputNewSessionDate"
+            android:layout_width="259dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter new date (blank for unchanged)"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

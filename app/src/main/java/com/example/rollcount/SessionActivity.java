@@ -7,68 +7,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class SessionActivity extends AppCompatActivity implements EditSessionNameDialog.EditSessionNameDialogListener, View.OnClickListener {
+import java.util.ArrayList;
 
-    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btnUndo ,btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16, btn17, btn18;
+public class SessionActivity extends AppCompatActivity implements EditSessionNameDateDialog.EditSessionNameDialogListener {
+
+    // declaring required objects
+    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btnUndo;
     protected GameSession openedGameSession;
     protected TextView sessionTitle;
+    protected ListView possibleRollsList;
+    protected ArrayList<Integer> possibleRollsDataList;
+    protected ArrayAdapter<Integer> possibleRollsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
-        openedGameSession = (GameSession)getIntent().getSerializableExtra("GameSession");
 
-        sessionTitle = (TextView) findViewById(R.id.textView1);
+        possibleRollsDataList = new ArrayList<Integer>();
+        // up to 3 dice * 6 sides = 18 possibilities
+        for (int i = 1; i < 19; i++) {
+            possibleRollsDataList.add(i);
+        }
+        possibleRollsList = findViewById(R.id.possibleRollsList);
+        possibleRollsAdapter = new ArrayAdapter<Integer>(this, R.layout.content, possibleRollsDataList);
+        possibleRollsList.setAdapter(possibleRollsAdapter);
+        openedGameSession = (GameSession) getIntent().getSerializableExtra("GameSession"); // get the GameSession instance clicked
+        sessionTitle = (TextView) findViewById(R.id.gameSessionName);
         sessionTitle.setText(openedGameSession.getSessionName());
-
         btnEditSessionName = (Button) findViewById(R.id.buttonEditSessionName);
         btnGoMainActivity = (Button) findViewById(R.id.buttonGoMainActivity);
         btnGoHistogram = (Button) findViewById(R.id.buttonHistogram);
         btnUndo = (Button) findViewById(R.id.buttonUndo);
-        btn1 = (Button) findViewById(R.id.button1);
-        btn2 = (Button) findViewById(R.id.button2);
-        btn3 = (Button) findViewById(R.id.button3);
-        btn4 = (Button) findViewById(R.id.button4);
-        btn5 = (Button) findViewById(R.id.button5);
-        btn6 = (Button) findViewById(R.id.button6);
-        btn7 = (Button) findViewById(R.id.button7);
-        btn8 = (Button) findViewById(R.id.button8);
-        btn9 = (Button) findViewById(R.id.button9);
-        btn10 = (Button) findViewById(R.id.button10);
-        btn11 = (Button) findViewById(R.id.button11);
-        btn12 = (Button) findViewById(R.id.button12);
-        btn13 = (Button) findViewById(R.id.button13);
-        btn14 = (Button) findViewById(R.id.button14);
-        btn15 = (Button) findViewById(R.id.button15);
-        btn16 = (Button) findViewById(R.id.button16);
-        btn17 = (Button) findViewById(R.id.button17);
-        btn18 = (Button) findViewById(R.id.button18);
-
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
-        btn4.setOnClickListener(this);
-        btn5.setOnClickListener(this);
-        btn6.setOnClickListener(this);
-        btn7.setOnClickListener(this);
-        btn8.setOnClickListener(this);
-        btn9.setOnClickListener(this);
-        btn10.setOnClickListener(this);
-        btn11.setOnClickListener(this);
-        btn12.setOnClickListener(this);
-        btn13.setOnClickListener(this);
-        btn14.setOnClickListener(this);
-        btn15.setOnClickListener(this);
-        btn16.setOnClickListener(this);
-        btn17.setOnClickListener(this);
-        btn18.setOnClickListener(this);
 
         hideCertainButtons();
 
@@ -78,14 +57,12 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
                 openEditDialog();
             }
         });
-
         btnGoMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resumeMainActivity();
             }
         });
-
         btnGoHistogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +75,12 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
                 openedGameSession.undoDiceRoll();
             }
         });
-
+        possibleRollsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                openedGameSession.addADiceRoll(possibleRollsDataList.get(i));
+            }
+        });
     }
 
     private void openHistogramDialog() {
@@ -114,111 +96,50 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
 
     private void hideCertainButtons() {
         if (openedGameSession.getNumberOfDiceRolls() == 1) {
-            btn7.setVisibility(View.GONE);
-            btn8.setVisibility(View.GONE);
-            btn9.setVisibility(View.GONE);
-            btn10.setVisibility(View.GONE);
-            btn11.setVisibility(View.GONE);
-            btn12.setVisibility(View.GONE);
-            btn13.setVisibility(View.GONE);
-            btn14.setVisibility(View.GONE);
-            btn15.setVisibility(View.GONE);
-            btn16.setVisibility(View.GONE);
-            btn17.setVisibility(View.GONE);
-            btn18.setVisibility(View.GONE);
-        }
-        else if (openedGameSession.getNumberOfDiceRolls() == 2) {
-            btn1.setVisibility(View.GONE);
-            btn13.setVisibility(View.GONE);
-            btn14.setVisibility(View.GONE);
-            btn15.setVisibility(View.GONE);
-            btn16.setVisibility(View.GONE);
-            btn17.setVisibility(View.GONE);
-            btn18.setVisibility(View.GONE);
-        }
-        else {
-            btn1.setVisibility(View.GONE);
-            btn2.setVisibility(View.GONE);
+            for (int i = 0; i < 12; i++) {
+                possibleRollsDataList.remove(6);
+            }
+        } else if (openedGameSession.getNumberOfDiceRolls() == 2) {
+            for (int i = 0; i < 6; i++) {
+                possibleRollsDataList.remove(12);
+            }
+            possibleRollsDataList.remove(0);
+        } else {
+            possibleRollsDataList.remove(0);
+            possibleRollsDataList.remove(0);
         }
 
     }
 
+    @Override
+    public void onBackPressed() {
+        resumeMainActivity();
+    }
+
     public void resumeMainActivity() {
+        // send the new object back to main activity
+        // got help from https://stackoverflow.com/questions/2091465/how-do-i-pass-data-between-activities-in-android-application
         Intent intent = new Intent();
-        intent.putExtra("Game Session", openedGameSession); //value should be your string from the edittext
-        setResult(1, intent); //The data you want to send back
+        intent.putExtra("Game Session", openedGameSession);
+        setResult(1, intent); // Send this data to main screen
         SessionActivity.super.onBackPressed();
     }
 
     private void openEditDialog() {
-        EditSessionNameDialog editSessionNameDialog = new EditSessionNameDialog();
+        EditSessionNameDateDialog editSessionNameDialog = new EditSessionNameDateDialog();
         editSessionNameDialog.show(getSupportFragmentManager(), "edit dialog");
     }
 
+    // got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+    // receive new name from EditSessionNameDialog
     @Override
-    public void applyTexts(String sessionName) {
-        openedGameSession.setSessionName(sessionName);
-        sessionTitle.setText(sessionName);
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.button1:
-                openedGameSession.addADiceRoll(1);
-                break;
-            case R.id.button2:
-                openedGameSession.addADiceRoll(2);
-                break;
-            case R.id.button3:
-                openedGameSession.addADiceRoll(3);
-                break;
-            case R.id.button4:
-                openedGameSession.addADiceRoll(4);
-                break;
-            case R.id.button5:
-                openedGameSession.addADiceRoll(5);
-                break;
-            case R.id.button6:
-                openedGameSession.addADiceRoll(6);
-                break;
-            case R.id.button7:
-                openedGameSession.addADiceRoll(7);
-                break;
-            case R.id.button8:
-                openedGameSession.addADiceRoll(8);
-                break;
-            case R.id.button9:
-                openedGameSession.addADiceRoll(9);
-                break;
-            case R.id.button10:
-                openedGameSession.addADiceRoll(10);
-                break;
-            case R.id.button11:
-                openedGameSession.addADiceRoll(11);
-                break;
-            case R.id.button12:
-                openedGameSession.addADiceRoll(12);
-                break;
-            case R.id.button13:
-                openedGameSession.addADiceRoll(13);
-                break;
-            case R.id.button14:
-                openedGameSession.addADiceRoll(14);
-                break;
-            case R.id.button15:
-                openedGameSession.addADiceRoll(15);
-                break;
-            case R.id.button16:
-                openedGameSession.addADiceRoll(16);
-                break;
-            case R.id.button17:
-                openedGameSession.addADiceRoll(17);
-                break;
-            case R.id.button18:
-                openedGameSession.addADiceRoll(18);
-                break;
+    public void applyTexts(String sessionName, String sessionDate) {
+        if (!sessionName.equals("")) {
+            sessionTitle.setText(sessionName);
+            openedGameSession.setSessionName(sessionName);
+        }
+        if (!sessionDate.equals("")) {
+            openedGameSession.setDateStarted(sessionDate);
         }
     }
 }

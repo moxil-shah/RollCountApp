@@ -28,10 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements AddSessionDialog.AddSessionDialogListener{
-    private static final String TAG ="Test";
 
 // declaring required objects
-
     protected ListView gameSessionList;
     protected ArrayList<GameSession> dataList;
     protected ArrayAdapter<GameSession> gameSessionAdapter;
@@ -40,19 +38,22 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     protected boolean itemDelete = false;
     protected TextView txtTotalCounter;
 
-
+    // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
+    // used to quite frankly "StartActivityForResult" and manage the data it sends back, which is a GameSession object
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult
             (new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
 
-            if (result.getResultCode() == 1) {
+            if (result.getResultCode() == 1) { // matches with the result code in SessionActivity
                 if (result.getData() != null) {
                     Bundle bundle = (Bundle) result.getData().getExtras();
+                    // get the object, then replace the corresponding object in the listview with ot
                     GameSession gameSession = (GameSession) bundle.get("Game Session");
                     dataList.get(itemIndex).setSessionName(gameSession.getSessionName());
                     dataList.get(itemIndex).setNewGameTotals(gameSession.getGameTotals());
                     dataList.get(itemIndex).setGameOutcomes(gameSession.getGameOutcomes());
+                    dataList.get(itemIndex).setDateStarted(gameSession.getDateStarted());
                     gameSessionList.setAdapter(gameSessionAdapter);
                     gameSessionAdapter.notifyDataSetChanged();
                     saveData();
@@ -66,23 +67,18 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GameSession[] gameSessions = {};
-        //dataList = new ArrayList<GameSession>();
+        // get data of app's previous state if there was one
         loadData();
         txtTotalCounter = (TextView) findViewById(R.id.textTotalCounter);
         txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
-
         // finding elements
         gameSessionList = findViewById(R.id.session_list);
         btnAddSession = (Button) findViewById(R.id.buttonAddSession);
         btnDeleteSession = (Button) findViewById(R.id.buttonDeleteSession);
-
         // Setting ArrayAdapter
         gameSessionAdapter = new ArrayAdapter<GameSession>(this, R.layout.content, dataList);
         // Setting up frontend to take advantage of adapter object
         gameSessionList.setAdapter(gameSessionAdapter);
-
-
 
         btnAddSession.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 itemIndex = i;
+                // delete or open a game session
                 if (itemDelete)
                     removeSession();
                 else {
@@ -104,12 +101,9 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         btnDeleteSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dataList.size() != 0) {
+                if (dataList.size() != 0) { // cannot delete nothing
                     Toast.makeText(MainActivity.this, "Click Session to Delete", Toast.LENGTH_LONG).show();
                     itemDelete = true;
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Don't even try to crash my app", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -119,10 +113,11 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         dataList.remove(itemIndex);
         gameSessionAdapter.notifyDataSetChanged(); // update list view
         txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
-        itemDelete = false;
-        saveData();
+        itemDelete = false; // reset helper variable
+        saveData(); // update saved state
     }
 
+    // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
     public void openSessionActivity() {
         GameSession openedGameSession = dataList.get(itemIndex);
         Intent intent = new Intent(this, SessionActivity.class);
@@ -137,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     }
 
     @Override
-    public void applyTexts(String sessionName, int numberOfRolls, int numberOfSides, String dateStarted) {
+    // got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+    // receive data for the new game session the user made
+    public void applyNewGameSession(String sessionName, int numberOfRolls, int numberOfSides, String dateStarted) {
         GameSession createdNew = new GameSession(numberOfRolls, numberOfSides);
         createdNew.setSessionName(sessionName);
         createdNew.setDateStarted(dateStarted);
@@ -148,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         saveData();
     }
 
-    // cite this method
+    // got help from https://www.youtube.com/watch?v=jcliHGR3CHo
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -158,14 +155,14 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         editor.apply();
     }
 
-    // cite this method
+    // got help from https://www.youtube.com/watch?v=jcliHGR3CHo
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("sessions", null);
         Type type = new TypeToken<ArrayList<GameSession>>() {}.getType();
         dataList = gson.fromJson(json, type);
-        if (dataList == null) {
+        if (dataList == null) { // if its first type opening app
             dataList = new ArrayList<>();
         }
     }

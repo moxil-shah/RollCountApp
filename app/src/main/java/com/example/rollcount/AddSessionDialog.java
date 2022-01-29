@@ -15,13 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
-
+// got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
 public class AddSessionDialog extends AppCompatDialogFragment {
-
+    // declaring required objects
     private EditText edtTextInputSessionName, edtTextInputRolls, edtTextInputDate;
     private AddSessionDialogListener listener;
-    public AddSessionDialog() {
-    }
 
     @NonNull
     @Override
@@ -41,13 +39,15 @@ public class AddSessionDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // all the stuff the user determines (except the sides, which is 6)
                         String sessionName = edtTextInputSessionName.getText().toString();
                         String numberOfRolls = edtTextInputRolls.getText().toString();
                         String numberOfSides = "6";
                         String sessionDate = edtTextInputDate.getText().toString();
                         final int numberOfRollsInt = Integer.parseInt(numberOfRolls);
                         final int numberOfSidesInt = Integer.parseInt(numberOfSides);
-                        listener.applyTexts(sessionName, numberOfRollsInt, numberOfSidesInt, sessionDate);
+                        listener.applyNewGameSession(sessionName, numberOfRollsInt, numberOfSidesInt, sessionDate);
+                        // update the session name by making a context listener. this gets sent back
                     }
                 });
     edtTextInputRolls = view.findViewById(R.id.editTextInputRolls);
@@ -59,7 +59,8 @@ public class AddSessionDialog extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    // fragment is attached to its context
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {
@@ -69,8 +70,8 @@ public class AddSessionDialog extends AppCompatDialogFragment {
         }
 
     }
-
+    // send this data back to calling activity
     public interface AddSessionDialogListener {
-        void applyTexts(String sessionName, int numberOfRollsInt, int numberOfSidesInt, String dateStarted);
+        void applyNewGameSession(String sessionName, int numberOfRollsInt, int numberOfSidesInt, String dateStarted);
     }
 }
