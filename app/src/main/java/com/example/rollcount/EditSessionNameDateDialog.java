@@ -30,7 +30,7 @@ public class EditSessionNameDateDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.edit_dialog_fragment, null); // make the view the.xml file layout
 
         builder.setView(view)
-                .setTitle("New Game Session Name")
+                .setTitle("Edit Game Session")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -46,8 +46,8 @@ public class EditSessionNameDateDialog extends AppCompatDialogFragment {
                     }
                 });
 
-        edtTextInputNewSessionName = view.findViewById(R.id.editTextInputNewSessionName);
-        edtTextInputNewSessionDate = view.findViewById(R.id.editTextInputNewSessionDate);
+       edtTextInputNewSessionName = view.findViewById(R.id.editTextInputNewSessionName);
+       edtTextInputNewSessionDate = view.findViewById(R.id.editTextInputNewSessionDate);
         return builder.create();
     }
 

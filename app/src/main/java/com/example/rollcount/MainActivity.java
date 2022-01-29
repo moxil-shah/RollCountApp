@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     protected int itemIndex;
     protected boolean itemDelete = false;
     protected TextView txtTotalCounter;
+    protected AddSessionDialog addSessionDialog;
 
     // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
     // used to quite frankly "StartActivityForResult" and manage the data it sends back, which is a GameSession object
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         // get data of app's previous state if there was one
         loadData();
         txtTotalCounter = (TextView) findViewById(R.id.textTotalCounter);
-        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
+        txtTotalCounter.setText(String.format("Total Sessions = %s", String.valueOf(dataList.size())));
         // finding elements
         gameSessionList = findViewById(R.id.session_list);
         btnAddSession = (Button) findViewById(R.id.buttonAddSession);
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     private void removeSession() {
         dataList.remove(itemIndex);
         gameSessionAdapter.notifyDataSetChanged(); // update list view
-        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
+        txtTotalCounter.setText(String.format("Total Sessions = %s", String.valueOf(dataList.size())));
         itemDelete = false; // reset helper variable
         saveData(); // update saved state
     }
@@ -127,8 +128,9 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     }
 
     private void openDialog() {
-        AddSessionDialog addSessionDialog = new AddSessionDialog();
+        addSessionDialog = new AddSessionDialog();
         addSessionDialog.show(getSupportFragmentManager(), "add dialog");
+
     }
 
     @Override
@@ -140,9 +142,10 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         createdNew.setDateStarted(dateStarted);
         dataList.add(createdNew);
         gameSessionList.setAdapter(gameSessionAdapter);
-        txtTotalCounter.setText(String.format("Total = %s", String.valueOf(dataList.size())));
+        txtTotalCounter.setText(String.format("Total Sessions = %s", String.valueOf(dataList.size())));
         gameSessionAdapter.notifyDataSetChanged();
         saveData();
+        addSessionDialog.dismiss();
     }
 
     // got help from https://www.youtube.com/watch?v=jcliHGR3CHo

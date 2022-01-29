@@ -3,6 +3,7 @@ package com.example.rollcount;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +44,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         possibleRollsList.setAdapter(possibleRollsAdapter);
         openedGameSession = (GameSession) getIntent().getSerializableExtra("GameSession"); // get the GameSession instance clicked
         sessionTitle = (TextView) findViewById(R.id.gameSessionName);
-        sessionTitle.setText(openedGameSession.getSessionName());
+        sessionTitle.setText("Total rolls for "+openedGameSession.getSessionName()+": "+String.valueOf(openedGameSession.getGameOutcomes().size()));
         btnEditSessionName = (Button) findViewById(R.id.buttonEditSessionName);
         btnGoMainActivity = (Button) findViewById(R.id.buttonGoMainActivity);
         btnGoHistogram = (Button) findViewById(R.id.buttonHistogram);
@@ -73,12 +74,14 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
             @Override
             public void onClick(View view) {
                 openedGameSession.undoDiceRoll();
+                sessionTitle.setText("Total rolls for "+openedGameSession.getSessionName()+": "+String.valueOf(openedGameSession.getGameOutcomes().size()));
             }
         });
         possibleRollsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedGameSession.addADiceRoll(possibleRollsDataList.get(i));
+                sessionTitle.setText("Total rolls for "+openedGameSession.getSessionName()+": "+String.valueOf(openedGameSession.getGameOutcomes().size()));
             }
         });
     }

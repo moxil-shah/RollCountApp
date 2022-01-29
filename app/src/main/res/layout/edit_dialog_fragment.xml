@@ -25,21 +25,21 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="337dp"
-            android:hint="Enter new name (blank for unchanged)"
+            android:hint="New name (blank for unchanged)"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/editTextInputNewSessionDate"
-            android:layout_width="259dp"
-            android:layout_height="59dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="138dp"
-            android:layout_marginEnd="20dp"
-            android:hint="Enter new date (blank for unchanged)"
-            android:textSize="15sp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="141dp"
+            android:layout_marginEnd="0dp"
+            android:hint="New date YYYY-MM-DD (blank for unchanged)"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </RelativeLayout>

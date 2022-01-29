@@ -44,11 +44,11 @@
 
     <TextView
         android:id="@+id/textTotalCounter"
-        android:layout_width="163dp"
-        android:layout_height="60dp"
+        android:layout_width="306dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="20dp"
-        android:textSize="34sp"
         android:gravity="center"
+        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddSession"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
