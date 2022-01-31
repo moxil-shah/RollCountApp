@@ -30,14 +30,14 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity implements AddSessionDialog.AddSessionDialogListener{
 
 // declaring required objects
-    protected ListView gameSessionList;
-    protected ArrayList<GameSession> dataList;
-    protected ArrayAdapter<GameSession> gameSessionAdapter;
-    protected Button btnAddSession, btnDeleteSession;
-    protected int itemIndex;
-    protected boolean itemDelete = false;
-    protected TextView txtTotalCounter;
-    protected AddSessionDialog addSessionDialog;
+    private ListView gameSessionList;
+    private ArrayList<GameSession> dataList;
+    private ArrayAdapter<GameSession> gameSessionAdapter;
+    private Button btnAddSession, btnDeleteSession;
+    private int itemIndex;
+    private boolean itemDelete = false;
+    private TextView txtTotalCounter;
+    private AddSessionDialog addSessionDialog;
 
     // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
     // used to quite frankly "StartActivityForResult" and manage the data it sends back, which is a GameSession object

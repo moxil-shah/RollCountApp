@@ -22,12 +22,12 @@ import java.util.ArrayList;
 public class SessionActivity extends AppCompatActivity implements EditSessionNameDateDialog.EditSessionNameDialogListener {
 
     // declaring required objects
-    protected Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btnUndo;
-    protected GameSession openedGameSession;
-    protected TextView sessionTitle;
-    protected ListView possibleRollsList;
-    protected ArrayList<Integer> possibleRollsDataList;
-    protected ArrayAdapter<Integer> possibleRollsAdapter;
+    private Button btnEditSessionName, btnGoMainActivity, btnGoHistogram, btnUndo;
+    private GameSession openedGameSession;
+    private TextView sessionTitle;
+    private ListView possibleRollsList;
+    private ArrayList<Integer> possibleRollsDataList;
+    private ArrayAdapter<Integer> possibleRollsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +138,9 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
     @Override
     public void applyTexts(String sessionName, String sessionDate) {
         if (!sessionName.equals("")) {
-            sessionTitle.setText(sessionName);
             openedGameSession.setSessionName(sessionName);
+            sessionTitle.setText("Total rolls for "+openedGameSession.getSessionName()+": "+String.valueOf(openedGameSession.getGameOutcomes().size()));
+
         }
         if (!sessionDate.equals("")) {
             openedGameSession.setDateStarted(sessionDate);

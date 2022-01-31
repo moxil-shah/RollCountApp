@@ -32,8 +32,8 @@ public class GameSession implements Serializable {
 
     // setter methods
 
-    public void setGameOutcomes(ArrayList<Integer> gameOutcomes) {
-        this.gameOutcomes = gameOutcomes;
+    public void setGameOutcomes(ArrayList<Integer> aGameOutcomes) {
+        this.gameOutcomes = aGameOutcomes;
     }
 
     public void setDateStarted(String aDate) {
