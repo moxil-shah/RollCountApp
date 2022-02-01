@@ -87,7 +87,12 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
     }
 
     private void openHistogramDialog() {
-
+        // This citation is in regards to sending data from a dialog and making this dialog
+        // From whom: Coding in Flow
+        // Date published: Oct 5, 2017
+        // License: CC BY
+        // URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
+        // receive new name from EditSessionNameDialog
         Intent intent = new Intent(this, HistogramDialog.class);
         intent.putExtra("Game Session", openedGameSession);
         Bundle args = (intent.getExtras());
@@ -98,6 +103,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
     }
 
     private void hideCertainButtons() {
+        // hide the buttons that do not associate with certain dice
         if (openedGameSession.getNumberOfDiceRolls() == 1) {
             for (int i = 0; i < 12; i++) {
                 possibleRollsDataList.remove(6);
@@ -111,7 +117,6 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
             possibleRollsDataList.remove(0);
             possibleRollsDataList.remove(0);
         }
-
     }
 
     @Override
@@ -121,27 +126,36 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
 
     public void resumeMainActivity() {
         // send the new object back to main activity
-        // got help from https://stackoverflow.com/questions/2091465/how-do-i-pass-data-between-activities-in-android-application
-        Intent intent = new Intent();
+        // This citation is in regards to intents and how to use them to send data to another activity
+        // From whom: user914425
+        // Date published: Sept 6, 2011
+        // License: CCBY-SA
+        // URL: https://stackoverflow.com/a/7325248
+        Intent intent = new Intent(); // pass an object in intent with a tag to identify it when received
         intent.putExtra("Game Session", openedGameSession);
         setResult(1, intent); // Send this data to main screen
         SessionActivity.super.onBackPressed();
     }
 
+    // open the edit dialog to make edits
     private void openEditDialog() {
         EditSessionNameDateDialog editSessionNameDialog = new EditSessionNameDateDialog();
         editSessionNameDialog.show(getSupportFragmentManager(), "edit dialog");
     }
 
-    // got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+    // This citation is in regards to sending data from a dialog and making this dialog
+    // From whom: Coding in Flow
+    // Date published: Oct 5, 2017
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
     // receive new name from EditSessionNameDialog
     @Override
     public void applyTexts(String sessionName, String sessionDate) {
         if (!sessionName.equals("")) {
             openedGameSession.setSessionName(sessionName);
             sessionTitle.setText("Total rolls for "+openedGameSession.getSessionName()+": "+String.valueOf(openedGameSession.getGameOutcomes().size()));
-
         }
+        // current date if blank
         if (!sessionDate.equals("")) {
             openedGameSession.setDateStarted(sessionDate);
         }

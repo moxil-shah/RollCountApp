@@ -39,7 +39,11 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     private TextView txtTotalCounter;
     private AddSessionDialog addSessionDialog;
 
-    // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
+    // This citation is in regards to sending data to a new activity with intent, and then getting it back
+    // From whom: Coding Demos
+    // Date published: July 4, 2021
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=qO3FFuBrT2E
     // used to quite frankly "StartActivityForResult" and manage the data it sends back, which is a GameSession object
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult
             (new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -118,7 +122,11 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         saveData(); // update saved state
     }
 
-    // got help from https://www.youtube.com/watch?v=qO3FFuBrT2E
+    // This citation is in regards to sending data to a new activity with intent
+    // From whom: Coding Demos
+    // Date published: July 4, 2021
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=qO3FFuBrT2E
     public void openSessionActivity() {
         GameSession openedGameSession = dataList.get(itemIndex);
         Intent intent = new Intent(this, SessionActivity.class);
@@ -134,38 +142,50 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     }
 
     @Override
-    // got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+    // This citation is in regards to receiving data from an activity
+    // From whom: Coding in Flow
+    // Date published: Oct 5, 2017
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
     // receive data for the new game session the user made
     public void applyNewGameSession(String sessionName, int numberOfRolls, int numberOfSides, String dateStarted) {
         GameSession createdNew = new GameSession(numberOfRolls, numberOfSides);
         createdNew.setSessionName(sessionName);
         createdNew.setDateStarted(dateStarted);
-        dataList.add(createdNew);
+        dataList.add(createdNew); // add to listview
         gameSessionList.setAdapter(gameSessionAdapter);
         txtTotalCounter.setText(String.format("Total Sessions = %s", String.valueOf(dataList.size())));
-        gameSessionAdapter.notifyDataSetChanged();
+        gameSessionAdapter.notifyDataSetChanged(); // update listview
         saveData();
         addSessionDialog.dismiss();
     }
 
-    // got help from https://www.youtube.com/watch?v=jcliHGR3CHo
+    // This citation is in regards to saving instances of objects in gson format
+    // From whom: Coding in Flow
+    // Date published: Nov 6, 2017
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=jcliHGR3CHo
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(dataList);
-        editor.putString("sessions", json);
+        String json = gson.toJson(dataList); // make a string rep of instances of object instances and store them in gson format
+        editor.putString("sessions", json); // tag to get the data back
         editor.apply();
     }
 
-    // got help from https://www.youtube.com/watch?v=jcliHGR3CHo
+    // This citation is in regards to saving instances of objects in gson format
+    // From whom: Coding in Flow
+    // Date published: Nov 6, 2017
+    // License: CC BY
+    // URL: https://www.youtube.com/watch?v=jcliHGR3CHo
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("sessions", null);
-        Type type = new TypeToken<ArrayList<GameSession>>() {}.getType();
-        dataList = gson.fromJson(json, type);
-        if (dataList == null) { // if its first type opening app
+        String json = sharedPreferences.getString("sessions", null); // corresponding tag to retrieve saved data
+        Type type = new TypeToken<ArrayList<GameSession>>() {}.getType(); // the type of data I got
+        dataList = gson.fromJson(json, type); // put the data into the data list
+        if (dataList == null) { // if its first type opening app, then obviously there is no saved data
             dataList = new ArrayList<>();
         }
     }

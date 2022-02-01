@@ -17,13 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
-// got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+// This citation is in regards to sending data from a dialog and making this dialog
+// From whom: Coding in Flow
+// Date published: Oct 5, 2017
+// License: CC BY
+// URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
 public class AddSessionDialog extends AppCompatDialogFragment {
     // declaring required objects
     private EditText edtTextInputSessionName, edtTextInputRolls, edtTextInputDate;
     private AddSessionDialogListener listener;
     private Button btnOkay;
-
 
     @NonNull
     @Override
@@ -40,7 +43,6 @@ public class AddSessionDialog extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
 
@@ -50,6 +52,8 @@ public class AddSessionDialog extends AppCompatDialogFragment {
                 // all the stuff the user determines (except the sides, which is 6)
                 String sessionName = edtTextInputSessionName.getText().toString();
                 String numberOfRolls = edtTextInputRolls.getText().toString();
+
+                //  if the user inputs an invalid roll, make toast to tell them
                 if (!(numberOfRolls.equals("1") || numberOfRolls.equals("2") || numberOfRolls.equals("3"))){
                     Toast.makeText(getActivity(), "Enter valid roll between 1-3", Toast.LENGTH_SHORT).show();
                     return;

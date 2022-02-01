@@ -15,7 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
-// got help from https://www.youtube.com/watch?v=ARezg1D9Zd0
+
+// This citation is in regards to sending data from a dialog and making this dialog
+// From whom: Coding in Flow
+// Date published: Oct 5, 2017
+// License: CC BY
+// URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
 public class EditSessionNameDateDialog extends AppCompatDialogFragment {
     // declaring required objects
     private EditText edtTextInputNewSessionName;
@@ -40,8 +45,8 @@ public class EditSessionNameDateDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String sessionName = edtTextInputNewSessionName.getText().toString();
-                        String sessionDate = edtTextInputNewSessionDate.getText().toString();
+                        String sessionName = edtTextInputNewSessionName.getText().toString(); // new session name
+                        String sessionDate = edtTextInputNewSessionDate.getText().toString(); // new session date
                         listener.applyTexts(sessionName, sessionDate); // update the session name by making a context listener. this gets sent back
                     }
                 });
