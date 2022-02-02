@@ -87,7 +87,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
     }
 
     private void openHistogramDialog() {
-        // This citation is in regards to sending data from a dialog and making this dialog
+        // (2) This citation is in regards to sending data from a dialog and making this dialog
         // From whom: Coding in Flow
         // Date published: Oct 5, 2017
         // License: CC BY
@@ -126,7 +126,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
 
     public void resumeMainActivity() {
         // send the new object back to main activity
-        // This citation is in regards to intents and how to use them to send data to another activity
+        // (4) This citation is in regards to intents and how to use them to send data to another activity
         // From whom: user914425
         // Date published: Sept 6, 2011
         // License: CCBY-SA
@@ -143,7 +143,7 @@ public class SessionActivity extends AppCompatActivity implements EditSessionNam
         editSessionNameDialog.show(getSupportFragmentManager(), "edit dialog");
     }
 
-    // This citation is in regards to sending data from a dialog and making this dialog
+    // (2) This citation is in regards to sending data from a dialog and making this dialog
     // From whom: Coding in Flow
     // Date published: Oct 5, 2017
     // License: CC BY

@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
-// This citation is in regards to sending data from a dialog and making this dialog
+// (2) This citation is in regards to sending data from a dialog and making this dialog
 // From whom: Coding in Flow
 // Date published: Oct 5, 2017
 // License: CC BY

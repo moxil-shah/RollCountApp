@@ -62,7 +62,7 @@ public class Histogram {
         for (Map.Entry<Integer, Integer> entry : gameTotals.entrySet()) {
             Integer outcome = entry.getKey();
             Integer frequency = entry.getValue();
-            // This citation is in regards to the character repetition below
+            // (6) This citation is in regards to the character repetition below
             // From whom: user102008
             // Date published: Feb 4, 2011
             // License: CC BY-SA 3.0

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     private TextView txtTotalCounter;
     private AddSessionDialog addSessionDialog;
 
-    // This citation is in regards to sending data to a new activity with intent, and then getting it back
+    // (1) This citation is in regards to sending data to a new activity with intent, and then getting it back
     // From whom: Coding Demos
     // Date published: July 4, 2021
     // License: CC BY
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         saveData(); // update saved state
     }
 
-    // This citation is in regards to sending data to a new activity with intent
+    // (1) This citation is in regards to sending data to a new activity with intent
     // From whom: Coding Demos
     // Date published: July 4, 2021
     // License: CC BY
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
     }
 
     @Override
-    // This citation is in regards to receiving data from an activity
+    // (2) This citation is in regards to receiving data from an activity
     // From whom: Coding in Flow
     // Date published: Oct 5, 2017
     // License: CC BY
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         addSessionDialog.dismiss();
     }
 
-    // This citation is in regards to saving instances of objects in gson format
+    // (3) This citation is in regards to saving instances of objects in gson format
     // From whom: Coding in Flow
     // Date published: Nov 6, 2017
     // License: CC BY
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements AddSessionDialog.
         editor.apply();
     }
 
-    // This citation is in regards to saving instances of objects in gson format
+    // (3) This citation is in regards to saving instances of objects in gson format
     // From whom: Coding in Flow
     // Date published: Nov 6, 2017
     // License: CC BY

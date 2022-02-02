@@ -40,7 +40,7 @@ public class GameSession implements Serializable {
 
     public void setDateStarted(String aDate) {
 
-        // This citation is in regards to getting the current data below
+        // (7) This citation is in regards to getting the current data below
         // From whom: no author
         // Date published: Jan 21, 2019
         // License: CCBY-SA
