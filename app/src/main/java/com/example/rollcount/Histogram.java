@@ -3,6 +3,9 @@ package com.example.rollcount;
 import java.util.HashMap;
 import java.util.Map;
 
+// this class serves as the dialog to making the String representation of the histogram and calculating and making the stats.
+// only getter methods since nothing is being changed.
+// no outstanding issues.
 public class Histogram {
 
     private String strHistogram = "";

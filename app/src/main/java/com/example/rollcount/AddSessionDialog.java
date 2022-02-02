@@ -22,6 +22,10 @@ import androidx.fragment.app.DialogFragment;
 // Date published: Oct 5, 2017
 // License: CC BY
 // URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
+
+// this class serves as the dialog to adding a game session.
+// simple dialog design.
+// no outstanding issues.
 public class AddSessionDialog extends AppCompatDialogFragment {
     // declaring required objects
     private EditText edtTextInputSessionName, edtTextInputRolls, edtTextInputDate;

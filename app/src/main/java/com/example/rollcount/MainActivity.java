@@ -27,6 +27,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// this class serves as the landing page.
+// contains the list of game sessions, and add and delete buttons which open up input dialogs.
+// no outstanding issues.
+
 public class MainActivity extends AppCompatActivity implements AddSessionDialog.AddSessionDialogListener{
 
 // declaring required objects

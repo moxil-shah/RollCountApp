@@ -19,6 +19,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+// this class serves as a gamesession's main page.
+// contains the list possible rolls, undo, edit, histogram buttons
+// no outstanding issues.
 public class SessionActivity extends AppCompatActivity implements EditSessionNameDateDialog.EditSessionNameDialogListener {
 
     // declaring required objects

@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDateTime;
 
+// this class serves as the blueprint for an instance of any and every game session.
+// has getters and setters to set and get all attributes that pertain to a game session and dice rolls.
+// no outstanding issues.
 public class GameSession implements Serializable {
 
     // attributes of a GameSession object

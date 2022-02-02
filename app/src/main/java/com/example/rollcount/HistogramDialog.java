@@ -21,6 +21,10 @@ import androidx.fragment.app.DialogFragment;
 // Date published: Oct 5, 2017
 // License: CC BY
 // URL: https://www.youtube.com/watch?v=ARezg1D9Zd0
+
+// this class serves as the dialog to viewing a games histogram and stats.
+// simple dialog design.
+// no outstanding issues.
 public class HistogramDialog extends AppCompatDialogFragment {
     // declaring required objects
     private GameSession openedGameSession;
